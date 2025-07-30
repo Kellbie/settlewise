@@ -248,6 +248,18 @@ img {
 
 /* Mobile responsiveness - adjust breakpoint as needed */
 @media (max-width: 768px) {
+    #floatbox{
+        padding-top: 20%;
+    }
+    #immigrant-familytxt{
+        display: none;
+    }
+    #documents-float{
+        margin-left: -10%;
+    }
+    #explore-cta{
+        width: 100%;
+    }
     .nav-links {
         display: none;
     }
