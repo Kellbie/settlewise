@@ -2,19 +2,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
     
-    mobileMenuBtn.addEventListener('click', function() {
+    mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent event from bubbling up
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
+        body.classList.toggle('menu-open');
     });
     
     // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
         link.addEventListener('click', () => {
             mobileMenuBtn.classList.remove('active');
             navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
         });
     });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+    });
+    
+    // Close menu on window resize if it becomes desktop view
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+    });
+
+    // Rest of your existing JavaScript...
+    // (keep all your testimonial slider, FAQ accordion, etc. code)
+
     
     // Testimonial Slider
     const testimonialSlides = document.querySelectorAll('.testimonial-slide');
