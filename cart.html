@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="SettleWise: Stress-free relocation packages for immigrants. Airport pickup, housing, documents, and community integration.">
+    <meta property="og:title" content="SettleWise - Land, Live, and Thrive Abroad">
+    <meta property="og:image" content="/assets/images/social-preview.jpg">
+    <meta property="og:url" content="https://www.settlewise.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | SettleWise</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="square square-1"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">SettleWise</span>
+                <span class="logo-dot"></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-cta" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/derulokell/30min'});return false;">Book Free Call</a>
+                <a href="cart.html" class="nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+            <div class="mobile-menu-btn">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h2 class="section-title">Your Cart</h2>
+            
+            <div class="cart-items" id="cart-items">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+            
+            <div class="cart-total">
+                <h3>Total: $<span id="total-amount">0</span></h3>
+                <button class="cta-primary" id="pay-now">Proceed to Payment</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/14047029064" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart from session storage
+            const savedCart = sessionStorage.getItem('settlewiseCart');
+            const cart = savedCart ? JSON.parse(savedCart) : { package: null, addons: [], total: 0 };
+            const cartItems = document.getElementById('cart-items');
+            
+            // Update cart count in nav
+            const itemCount = (cart.package ? 1 : 0) + cart.addons.length;
+            document.querySelector('.cart-count').textContent = itemCount;
+            
+            if (!cart.package) {
+                // Empty cart state
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Please select a package from our services page</p>
+                        <a href="services.html" class="nav-cta" id="explore-cta">Browse Packages</a>
+                    </div>
+                `;
+                document.getElementById('total-amount').textContent = '0';
+                document.getElementById('pay-now').style.display = 'none';
+                return;
+            }
+            
+            // Display package
+            const packageItem = document.createElement('div');
+            packageItem.className = 'cart-item package-item';
+            packageItem.innerHTML = `
+                <div class="cart-item-details">
+                    <h3>${cart.package.name}</h3>
+                    <p>Base package with essential relocation services</p>
+                </div>
+                <div class="cart-item-price">$${cart.package.price}</div>
+                <button class="remove-item" data-type="package">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            cartItems.appendChild(packageItem);
+            
+            // Display addons
+            cart.addons.forEach((addon, index) => {
+                const addonItem = document.createElement('div');
+                addonItem.className = 'cart-item';
+                addonItem.innerHTML = `
+                    <div class="cart-item-details">
+                        <h3>${addon.displayName}</h3>
+                        <p>Additional service</p>
+                    </div>
+                    <div class="cart-item-price">$${addon.price}</div>
+                    <button class="remove-item" data-type="addon" data-index="${index}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                cartItems.appendChild(addonItem);
+            });
+            
+            // Update total
+            document.getElementById('total-amount').textContent = cart.total;
+            
+            // Remove items functionality
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    
+                    if (type === 'package') {
+                        // Remove package and all addons
+                        sessionStorage.removeItem('settlewiseCart');
+                        Swal.fire({
+                            title: 'Package Removed',
+                            text: 'All items have been removed from your cart',
+                            icon: 'success',
+                            confirmButtonText: 'Continue'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        // Remove specific addon
+                        const index = parseInt(this.dataset.index);
+                        cart.addons.splice(index, 1);
+                        cart.total -= cart.addons[index].price;
+                        sessionStorage.setItem('settlewiseCart', JSON.stringify(cart));
+                        Swal.fire({
+                            title: 'Add-on Removed',
+                            text: 'The item has been removed from your cart',
+                            icon: 'success',
+                            confirmButtonText: 'Continue'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                });
+            });
+            
+            // Pay now button
+            document.getElementById('pay-now').addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Payment Coming Soon',
+                    text: 'The payment functionality will be implemented in the next phase',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

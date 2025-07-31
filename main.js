@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
     
     mobileMenuBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent event from bubbling up
+        e.stopPropagation();
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
         body.classList.toggle('menu-open');
@@ -38,9 +38,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Rest of your existing JavaScript...
-    // (keep all your testimonial slider, FAQ accordion, etc. code)
+    // Enhanced Calendly Integration
+    function loadCalendly() {
+        return new Promise((resolve, reject) => {
+            if (typeof Calendly !== 'undefined') {
+                return resolve();
+            }
 
+            const script = document.createElement('script');
+            script.src = 'https://assets.calendly.com/assets/external/widget.js';
+            script.async = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    async function handleCalendlyClick(e) {
+        e.preventDefault();
+        
+        try {
+            await loadCalendly();
+            
+            Calendly.initPopupWidget({
+                url: 'https://calendly.com/derulokell/30min',
+                prefill: {
+                    name: '',
+                    email: '',
+                    phone: ''
+                },
+                utm: {}
+            });
+        } catch (error) {
+            console.error('Calendly failed to load:', error);
+            // Fallback - open in new tab
+            window.open('https://calendly.com/derulokell/30min', '_blank');
+        }
+    }
+
+    // Setup all Calendly buttons
+    document.querySelectorAll('[data-calendly]').forEach(button => {
+        button.addEventListener('click', handleCalendlyClick);
+    });
+
+    // Rest of your existing JavaScript...
+    // (Testimonial slider, FAQ accordion, etc.)
     
     // Testimonial Slider
     const testimonialSlides = document.querySelectorAll('.testimonial-slide');
@@ -90,21 +132,53 @@ document.addEventListener('DOMContentLoaded', function() {
         dot.addEventListener('click', resetInterval);
     });
     
-    // Package Tabs
+// Enhanced Package Tabs with Animation - Put this inside DOMContentLoaded
+function initPackageTabs() {
     const packageTabs = document.querySelectorAll('.package-tab');
     const packageContents = document.querySelectorAll('.package-content');
-    
+
     packageTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabId = tab.getAttribute('data-tab');
+        tab.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            const currentActiveTab = document.querySelector('.package-tab.active');
+            const currentActiveContent = document.querySelector('.package-content.active');
             
-            packageTabs.forEach(t => t.classList.remove('active'));
-            packageContents.forEach(c => c.classList.remove('active'));
-            
-            tab.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            // Only proceed if clicking a different tab
+            if (this !== currentActiveTab) {
+                // Remove active classes
+                currentActiveTab.classList.remove('active');
+                currentActiveContent.classList.remove('active');
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Get the content to show
+                const contentToShow = document.getElementById(tabId);
+                
+                // Determine animation direction
+                const currentIndex = Array.from(packageTabs).indexOf(currentActiveTab);
+                const newIndex = Array.from(packageTabs).indexOf(this);
+                
+                // Reset animation classes
+                contentToShow.classList.remove('slide-left');
+                
+                // Add appropriate animation class
+                if (newIndex > currentIndex) {
+                    contentToShow.classList.add('active');
+                } else {
+                    contentToShow.classList.add('active', 'slide-left');
+                }
+            }
         });
     });
+}
+
+// Call this in your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    // ... other code ...
+    initPackageTabs();
+    // ... other code ...
+});
     
     // FAQ Accordion
     const faqQuestions = document.querySelectorAll('.faq-question');
@@ -140,8 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Here you would typically send the form data to a server
-            // For this example, we'll just show an alert
             alert('Thank you for your message! We will get back to you soon.');
             this.reset();
         });

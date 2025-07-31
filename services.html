@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add to <head> section of ALL pages -->
-<meta name="description" content="SettleWise: Stress-free relocation packages for immigrants. Airport pickup, housing, documents, and community integration.">
-<meta property="og:title" content="SettleWise - Land, Live, and Thrive Abroad">
-<meta property="og:image" content="/assets/images/social-preview.jpg">
-<meta property="og:url" content="https://www.settlewise.com">
-
-
-
+    <meta name="description" content="SettleWise: Stress-free relocation packages for immigrants. Airport pickup, housing, documents, and community integration.">
+    <meta property="og:title" content="SettleWise - Land, Live, and Thrive Abroad">
+    <meta property="og:image" content="/assets/images/social-preview.jpg">
+    <meta property="og:url" content="https://www.settlewise.com">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services | SettleWise</title>
@@ -16,6 +12,8 @@
     <link rel="stylesheet" href="animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <!-- Animated Background Elements -->
@@ -36,7 +34,11 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="services.html" class="nav-link active">Services</a>
                 <a href="contact.html" class="nav-link">Contact</a>
-                <a href="#" class="nav-cta">Book Free Call</a>
+                <a href="#" class="nav-cta" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/derulokell/30min'});return false;">Book Free Call</a>
+                <a href="cart.html" class="nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
             </div>
             <div class="mobile-menu-btn">
                 <div class="menu-line"></div>
@@ -63,126 +65,85 @@
                 <button class="package-tab" data-tab="premium">Premium Support</button>
             </div>
 
-            <div class="package-content active" id="starter">
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3>Starter Package</h3>
-                        <div class="package-price">$199</div>
-                        <p class="package-ideal">Ideal for: Solo arrivals, students, or digital nomads on a budget</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Airport pickup coordination</li>
-                            <li><i class="fas fa-check"></i> Temporary housing search assistance</li>
-                            <li><i class="fas fa-check"></i> Local SIM card setup guidance</li>
-                            <li><i class="fas fa-check"></i> Welcome orientation PDF</li>
-                            <li><i class="fas fa-check"></i> WhatsApp onboarding to community groups</li>
-                        </ul>
-                    </div>
-                    <div class="package-cta">
-                        <a href="#"  class="nav-cta" id="explore-cta">Book Now</a>
-                        <a href="#" class="cta-secondary">Compare Packages</a>
+            <div class="packages-container">
+                <div class="package-content active" id="starter">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Starter Package</h3>
+                            <div class="package-price">$199</div>
+                            <p class="package-ideal">Ideal for: Solo arrivals, students, or digital nomads on a budget</p>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Airport pickup coordination</li>
+                                <li><i class="fas fa-check"></i> Temporary housing search assistance</li>
+                                <li><i class="fas fa-check"></i> Local SIM card setup guidance</li>
+                                <li><i class="fas fa-check"></i> Welcome orientation PDF</li>
+                                <li><i class="fas fa-check"></i> WhatsApp onboarding to community groups</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <button class="cta-primary add-to-cart" data-package="starter" data-price="199">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="package-content" id="full">
-                <div class="package-card highlighted">
-                    <div class="package-badge">Most Popular</div>
-                    <div class="package-header">
-                        <h3>Full Relocation Bundle</h3>
-                        <div class="package-price">$399</div>
-                        <p class="package-ideal">Ideal for: New immigrants, graduate students, families relocating long-term</p>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Everything in Starter, plus:</li>
-                            <li><i class="fas fa-check"></i> SSN application assistance</li>
-                            <li><i class="fas fa-check"></i> Bank account setup support</li>
-                            <li><i class="fas fa-check"></i> Guidance on phone plans & internet</li>
-                            <li><i class="fas fa-check"></i> 1-on-1 orientation video call</li>
-                            <li><i class="fas fa-check"></i> Lease review for long-term housing</li>
-                            <li><i class="fas fa-check"></i> Intro to local service providers</li>
-                            <li><i class="fas fa-check"></i> Basic job search resources</li>
-                            <li><i class="fas fa-check"></i> Digital welcome kit</li>
-                        </ul>
-                    </div>
-                    <div class="package-cta">
-                        <a href="#" class="cta-primary">Book Now</a>
-                        <a href="#" class="cta-secondary">Compare Packages</a>
+                <div class="package-content" id="full">
+                    <div class="package-card highlighted">
+                        <div class="package-badge">Most Popular</div>
+                        <div class="package-header">
+                            <h3>Full Relocation Bundle</h3>
+                            <div class="package-price">$399</div>
+                            <p class="package-ideal">Ideal for: New immigrants, graduate students, families relocating long-term</p>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Everything in Starter, plus:</li>
+                                <li><i class="fas fa-check"></i> SSN application assistance</li>
+                                <li><i class="fas fa-check"></i> Bank account setup support</li>
+                                <li><i class="fas fa-check"></i> Guidance on phone plans & internet</li>
+                                <li><i class="fas fa-check"></i> 1-on-1 orientation video call</li>
+                                <li><i class="fas fa-check"></i> Lease review for long-term housing</li>
+                                <li><i class="fas fa-check"></i> Intro to local service providers</li>
+                                <li><i class="fas fa-check"></i> Basic job search resources</li>
+                                <li><i class="fas fa-check"></i> Digital welcome kit</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <button class="cta-primary add-to-cart" data-package="full" data-price="399">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="package-content" id="premium">
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3>Premium Support Package</h3>
-                        <div class="package-price">$599</div>
-                        <p class="package-ideal">Ideal for: Families, professionals, or first-time travelers who want complete support</p>
+                <div class="package-content" id="premium">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Premium Support Package</h3>
+                            <div class="package-price">$599</div>
+                            <p class="package-ideal">Ideal for: Families, professionals, or first-time travelers who want complete support</p>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Everything in Full Relocation, plus:</li>
+                                <li><i class="fas fa-check"></i> 1-on-1 WhatsApp/email support for 30 days</li>
+                                <li><i class="fas fa-check"></i> Grocery starter pack coordination</li>
+                                <li><i class="fas fa-check"></i> Job prep session (résumé + interview)</li>
+                                <li><i class="fas fa-check"></i> Up to 2 in-person assisted errands</li>
+                                <li><i class="fas fa-check"></i> Weekly wellness check-in calls</li>
+                                <li><i class="fas fa-check"></i> Emergency response support</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <button class="cta-primary add-to-cart" data-package="premium" data-price="599">Add to Cart</button>
+                        </div>
                     </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Everything in Full Relocation, plus:</li>
-                            <li><i class="fas fa-check"></i> 1-on-1 WhatsApp/email support for 30 days</li>
-                            <li><i class="fas fa-check"></i> Grocery starter pack coordination</li>
-                            <li><i class="fas fa-check"></i> Job prep session (résumé + interview)</li>
-                            <li><i class="fas fa-check"></i> Up to 2 in-person assisted errands</li>
-                            <li><i class="fas fa-check"></i> Weekly wellness check-in calls</li>
-                            <li><i class="fas fa-check"></i> Emergency response support</li>
-                        </ul>
-                    </div>
-                    <div class="package-cta">
-                        <a href="#" class="cta-primary">Book Now</a>
-                        <a href="#" class="cta-secondary">Compare Packages</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Comparison Table -->
-    <section class="comparison">
-        <div class="container">
-            <h2 class="section-title">Package Comparison</h2>
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <div class="comparison-feature">Service Included</div>
-                    <div class="comparison-package">Starter ($199)</div>
-                    <div class="comparison-package">Full Relocation ($399)</div>
-                    <div class="comparison-package">Premium Support ($599)</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-feature">Airport Pickup</div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-feature">Temporary Housing Search</div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                </div>
-                <!-- More rows would be added here -->
-                <div class="comparison-row">
-                    <div class="comparison-feature">30-Day Personal Support</div>
-                    <div class="comparison-package"><i class="fas fa-times"></i></div>
-                    <div class="comparison-package"><i class="fas fa-times"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-feature">In-Person Visits</div>
-                    <div class="comparison-package"><i class="fas fa-times"></i></div>
-                    <div class="comparison-package"><i class="fas fa-times"></i></div>
-                    <div class="comparison-package"><i class="fas fa-check"></i></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Add-ons Section -->
-    <section class="addons">
+    <section class="addons" id="addons-section" style="display: none;">
         <div class="container">
             <h2 class="section-title">Customize Your Package</h2>
             <p class="section-subtitle">Add these services to any package for complete flexibility</p>
@@ -193,42 +154,42 @@
                     <h3>SIM Card Setup</h3>
                     <p>We provide and activate your SIM card</p>
                     <div class="addon-price">$30</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <button class="addon-btn add-addon" data-addon="sim" data-price="30">Add to Package</button>
                 </div>
                 <div class="addon-card">
                     <div class="addon-icon"><i class="fas fa-shopping-basket"></i></div>
                     <h3>Grocery Starter Pack</h3>
                     <p>Essential food pack delivered upon arrival</p>
-                    <div class="addon-price">$50-$70</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <div class="addon-price">$50</div>
+                    <button class="addon-btn add-addon" data-addon="grocery" data-price="50">Add to Package</button>
                 </div>
                 <div class="addon-card">
                     <div class="addon-icon"><i class="fas fa-id-card"></i></div>
                     <h3>Driver's License Prep</h3>
                     <p>Resources, booking help, and checklist</p>
                     <div class="addon-price">$40</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <button class="addon-btn add-addon" data-addon="license" data-price="40">Add to Package</button>
                 </div>
                 <div class="addon-card">
                     <div class="addon-icon"><i class="fas fa-user-tie"></i></div>
                     <h3>Airport Meet & Greet</h3>
                     <p>In-person welcome and escort to accommodation</p>
                     <div class="addon-price">$60</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <button class="addon-btn add-addon" data-addon="meet-greet" data-price="60">Add to Package</button>
                 </div>
                 <div class="addon-card">
                     <div class="addon-icon"><i class="fas fa-home"></i></div>
                     <h3>Housing Visit</h3>
                     <p>On-site viewing or vetting of housing</p>
                     <div class="addon-price">$80</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <button class="addon-btn add-addon" data-addon="housing" data-price="80">Add to Package</button>
                 </div>
                 <div class="addon-card">
                     <div class="addon-icon"><i class="fas fa-calendar-plus"></i></div>
                     <h3>Extra Week Support</h3>
                     <p>Extend Premium support by 7 days</p>
                     <div class="addon-price">$99</div>
-                    <button class="addon-btn">Add to Package</button>
+                    <button class="addon-btn add-addon" data-addon="extra-week" data-price="99">Add to Package</button>
                 </div>
             </div>
         </div>
@@ -239,7 +200,7 @@
         <div class="container">
             <h2>Need Help Choosing?</h2>
             <p>Schedule a free consultation call and we'll help you select the perfect package for your needs.</p>
-            <a href="#"  class="nav-cta" id="explore-cta">Book Free Call</a>
+            <a href="#" class="nav-cta" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/derulokell/30min'});return false;">Book Free Call</a>
         </div>
     </section>
 
@@ -255,5 +216,109 @@
 
     <script src="main.js"></script>
     <script src="animations.js"></script>
+    <script>
+        // Cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart count
+            updateCartCount();
+            
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageType = this.dataset.package;
+                    const price = parseInt(this.dataset.price);
+                    
+                    const cart = {
+                        package: {
+                            type: packageType,
+                            name: packageType === 'starter' ? 'Starter Package' : 
+                                  packageType === 'full' ? 'Full Relocation Bundle' : 'Premium Support Package',
+                            price: price
+                        },
+                        addons: [],
+                        total: price
+                    };
+                    
+                    sessionStorage.setItem('settlewiseCart', JSON.stringify(cart));
+                    updateCartCount();
+                    
+                    // Show addons section
+                    document.getElementById('addons-section').style.display = 'block';
+                    Swal.fire({
+                        title: 'Package Added!',
+                        text: 'Now you can select add-ons to customize your package',
+                        icon: 'success',
+                        confirmButtonText: 'Continue'
+                    });
+                });
+            });
+
+            // Add addons
+            document.querySelectorAll('.add-addon').forEach(button => {
+                button.addEventListener('click', function() {
+                    const savedCart = sessionStorage.getItem('settlewiseCart');
+                    if (!savedCart) {
+                        Swal.fire({
+                            title: 'Select a Package First',
+                            text: 'Please choose a package before adding any add-ons',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+                    
+                    const cart = JSON.parse(savedCart);
+                    const addonName = this.dataset.addon;
+                    const price = parseInt(this.dataset.price);
+                    const addonDisplayName = {
+                        'sim': 'SIM Card Setup',
+                        'grocery': 'Grocery Starter Pack',
+                        'license': 'Driver\'s License Prep',
+                        'meet-greet': 'Airport Meet & Greet',
+                        'housing': 'Housing Visit',
+                        'extra-week': 'Extra Week Support'
+                    }[addonName];
+                    
+                    // Check if addon already exists
+                    const existingIndex = cart.addons.findIndex(a => a.name === addonName);
+                    if (existingIndex >= 0) {
+                        Swal.fire({
+                            title: 'Already Added',
+                            text: 'This add-on is already in your cart',
+                            icon: 'info',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+                    
+                    cart.addons.push({
+                        name: addonName,
+                        displayName: addonDisplayName,
+                        price: price
+                    });
+                    cart.total += price;
+                    
+                    sessionStorage.setItem('settlewiseCart', JSON.stringify(cart));
+                    updateCartCount();
+                    
+                    Swal.fire({
+                        title: 'Add-on Added!',
+                        text: `${addonDisplayName} has been added to your package`,
+                        icon: 'success',
+                        confirmButtonText: 'Continue'
+                    });
+                });
+            });
+
+            function updateCartCount() {
+                const savedCart = sessionStorage.getItem('settlewiseCart');
+                const cart = savedCart ? JSON.parse(savedCart) : { package: null, addons: [], total: 0 };
+                const itemCount = (cart.package ? 1 : 0) + cart.addons.length;
+                document.querySelectorAll('.cart-count').forEach(el => {
+                    el.textContent = itemCount;
+                });
+            }
+        });
+    </script>
 </body>
 </html>

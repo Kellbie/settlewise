@@ -59,6 +59,37 @@
     }
 }
 
+/* Add to your animations.css */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.package-content.active {
+    animation: slideInFromRight 0.5s ease-out forwards;
+}
+
+.package-content.slide-left {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
 /* Element Animations */
 .hero-title .title-line {
     display: inline-block;
@@ -177,4 +208,56 @@
 [data-animate="zoomIn"].animated {
     opacity: 1;
     transform: scale(1);
+}
+
+/* Package Tab Animations */
+.packages-container {
+    position: relative;
+    min-height: 800px;
+    overflow: hidden;
+}
+
+.package-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(100px);
+    transition: none; /* Remove transition to let animations handle it */
+    pointer-events: none;
+}
+
+.package-content.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    animation: slideInFromRight 0.5s ease-out forwards;
+}
+
+.package-content.slide-left {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+/* Make sure these keyframes are present */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }

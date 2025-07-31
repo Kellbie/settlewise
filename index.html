@@ -7,6 +7,10 @@
     <meta property="og:url" content="https://www.settlewise.com">
 
 
+<!-- Calendly link widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<!-- Calendly link widget end -->
 
 
     <link rel="preload" href="/fonts/poppins-regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -30,25 +34,30 @@
     </div>
 
     <!-- Navigation -->
-<nav class="navbar">
-    <div class="container">
-        <a href="index.html" class="logo">
-            <span class="logo-text">SettleWise</span>
-            <span class="logo-dot"></span>
-        </a>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="services.html" class="nav-link">Services</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-            <a href="#" class="nav-cta">Book Free Call</a>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">SettleWise</span>
+                <span class="logo-dot"></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/derulokell?hide_landing_page_details=1&hide_gdpr_banner=1'});return false;"><button class="nav-cta" id="explore-cta">Book Free Call</button></a>
+                <a href="cart.html" class="nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+            <div class="mobile-menu-btn">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
         </div>
-        <div class="mobile-menu-btn">
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-        </div>
-    </div>
-</nav>
+    </nav>
+
 
     <!-- Hero Section -->
     <section class="hero">
@@ -231,7 +240,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="mailto:info@settlewise.com">info@settlewise.com</a></li>
-                        <li><a href="tel:+14047029064">+1 404 702 9064</a></li>
+                        <li ><a href="tel:+14047029064">+1 404 702 9064</a></li>
                         <li><a href="contact.html">Contact Form</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
@@ -251,15 +260,14 @@
 
     <script src="main.js"></script>
     <script src="animations.js"></script>
-
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
-</script>
+    <script>
+        // Initialize cart count
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedCart = sessionStorage.getItem('settlewiseCart');
+            const cart = savedCart ? JSON.parse(savedCart) : { package: null, addons: [], total: 0 };
+            const itemCount = (cart.package ? 1 : 0) + cart.addons.length;
+            document.querySelector('.cart-count').textContent = itemCount;
+        });
+    </script>
 </body>
-
 </html>

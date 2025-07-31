@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add to <head> section of ALL pages -->
-<meta name="description" content="SettleWise: Stress-free relocation packages for immigrants. Airport pickup, housing, documents, and community integration.">
-<meta property="og:title" content="SettleWise - Land, Live, and Thrive Abroad">
-<meta property="og:image" content="/assets/images/social-preview.jpg">
-<meta property="og:url" content="https://www.settlewise.com">
-
-
-
+    <meta name="description" content="SettleWise: Stress-free relocation packages for immigrants. Airport pickup, housing, documents, and community integration.">
+    <meta property="og:title" content="SettleWise - Land, Live, and Thrive Abroad">
+    <meta property="og:image" content="/assets/images/social-preview.jpg">
+    <meta property="og:url" content="https://www.settlewise.com">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | SettleWise</title>
@@ -16,6 +12,7 @@
     <link rel="stylesheet" href="animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </head>
 <body>
     <!-- Animated Background Elements -->
@@ -36,7 +33,11 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="services.html" class="nav-link">Services</a>
                 <a href="contact.html" class="nav-link active">Contact</a>
-                <a href="#" class="nav-cta">Book Free Call</a>
+                <a href="#" class="nav-cta" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/derulokell/30min'});return false;">Book Free Call</a>
+                <a href="cart.html" class="nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
             </div>
             <div class="mobile-menu-btn">
                 <div class="menu-line"></div>
@@ -199,5 +200,14 @@
 
     <script src="main.js"></script>
     <script src="animations.js"></script>
+    <script>
+        // Initialize cart count
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedCart = sessionStorage.getItem('settlewiseCart');
+            const cart = savedCart ? JSON.parse(savedCart) : { package: null, addons: [], total: 0 };
+            const itemCount = (cart.package ? 1 : 0) + cart.addons.length;
+            document.querySelector('.cart-count').textContent = itemCount;
+        });
+    </script>
 </body>
 </html>
