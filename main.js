@@ -81,9 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', handleCalendlyClick);
     });
 
-    // Rest of your existing JavaScript...
-    // (Testimonial slider, FAQ accordion, etc.)
-    
     // Testimonial Slider
     const testimonialSlides = document.querySelectorAll('.testimonial-slide');
     const dots = document.querySelectorAll('.dot');
@@ -109,14 +106,18 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(currentSlide - 1);
     }
     
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+    }
     
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            showSlide(index);
+    if (dots) {
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
         });
-    });
+    }
     
     // Auto-rotate testimonials
     let slideInterval = setInterval(nextSlide, 5000);
@@ -126,86 +127,59 @@ document.addEventListener('DOMContentLoaded', function() {
         slideInterval = setInterval(nextSlide, 5000);
     }
     
-    nextBtn.addEventListener('click', resetInterval);
-    prevBtn.addEventListener('click', resetInterval);
-    dots.forEach(dot => {
-        dot.addEventListener('click', resetInterval);
-    });
-    
-// Enhanced Package Tabs with Animation - Put this inside DOMContentLoaded
-function initPackageTabs() {
-    const packageTabs = document.querySelectorAll('.package-tab');
-    const packageContents = document.querySelectorAll('.package-content');
-
-    packageTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            const currentActiveTab = document.querySelector('.package-tab.active');
-            const currentActiveContent = document.querySelector('.package-content.active');
-            
-            // Only proceed if clicking a different tab
-            if (this !== currentActiveTab) {
-                // Remove active classes
-                currentActiveTab.classList.remove('active');
-                currentActiveContent.classList.remove('active');
-                
-                // Add active class to clicked tab
-                this.classList.add('active');
-                
-                // Get the content to show
-                const contentToShow = document.getElementById(tabId);
-                
-                // Determine animation direction
-                const currentIndex = Array.from(packageTabs).indexOf(currentActiveTab);
-                const newIndex = Array.from(packageTabs).indexOf(this);
-                
-                // Reset animation classes
-                contentToShow.classList.remove('slide-left');
-                
-                // Add appropriate animation class
-                if (newIndex > currentIndex) {
-                    contentToShow.classList.add('active');
-                } else {
-                    contentToShow.classList.add('active', 'slide-left');
-                }
-            }
+    if (nextBtn) nextBtn.addEventListener('click', resetInterval);
+    if (prevBtn) prevBtn.addEventListener('click', resetInterval);
+    if (dots) {
+        dots.forEach(dot => {
+            dot.addEventListener('click', resetInterval);
         });
-    });
-}
+    }
 
-// Call this in your DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', function() {
-    // ... other code ...
-    initPackageTabs();
-    // ... other code ...
-});
-    
-    // FAQ Accordion
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const answer = question.nextElementSibling;
-            const isOpen = question.classList.contains('active');
-            
-            // Close all other FAQs
-            faqQuestions.forEach(q => {
-                if (q !== question) {
-                    q.classList.remove('active');
-                    q.nextElementSibling.style.maxHeight = null;
+    // Enhanced Package Tabs with Animation
+    function initPackageTabs() {
+        const packageTabs = document.querySelectorAll('.package-tab');
+        const packageContents = document.querySelectorAll('.package-content');
+
+        packageTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                const currentActiveTab = document.querySelector('.package-tab.active');
+                const currentActiveContent = document.querySelector('.package-content.active');
+                
+                // Only proceed if clicking a different tab
+                if (this !== currentActiveTab) {
+                    // Remove active classes
+                    currentActiveTab.classList.remove('active');
+                    currentActiveContent.classList.remove('active');
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Get the content to show
+                    const contentToShow = document.getElementById(tabId);
+                    
+                    // Determine animation direction
+                    const currentIndex = Array.from(packageTabs).indexOf(currentActiveTab);
+                    const newIndex = Array.from(packageTabs).indexOf(this);
+                    
+                    // Reset animation classes
+                    contentToShow.classList.remove('slide-left');
+                    
+                    // Add appropriate animation class
+                    if (newIndex > currentIndex) {
+                        contentToShow.classList.add('active');
+                    } else {
+                        contentToShow.classList.add('active', 'slide-left');
+                    }
                 }
             });
-            
-            // Toggle current FAQ
-            question.classList.toggle('active');
-            
-            if (!isOpen) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-            } else {
-                answer.style.maxHeight = null;
-            }
         });
-    });
+    }
+
+    // Call this in your DOMContentLoaded event
+    if (document.querySelector('.package-tab')) {
+        initPackageTabs();
+    }
     
     // Form Submission
     const contactForm = document.getElementById('contactForm');

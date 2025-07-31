@@ -207,6 +207,33 @@
             const cart = savedCart ? JSON.parse(savedCart) : { package: null, addons: [], total: 0 };
             const itemCount = (cart.package ? 1 : 0) + cart.addons.length;
             document.querySelector('.cart-count').textContent = itemCount;
+
+            // FAQ Accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isOpen = question.classList.contains('active');
+                    
+                    // Close all other FAQs
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.classList.remove('active');
+                            q.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+                    
+                    // Toggle current FAQ
+                    question.classList.toggle('active');
+                    
+                    if (!isOpen) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        answer.style.maxHeight = null;
+                    }
+                });
+            });
         });
     </script>
 </body>
